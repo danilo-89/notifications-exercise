@@ -1,41 +1,5 @@
 # Notifications Exercise
 
-## Server API
-
-This api uses json-server, see official documentation to learn more about it: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
-
-Notifications route:
-
-```
-
-http://localhost:3001/notifications
-
-```
-
-Unread notifications route:
-
-```
-
-http://localhost:3001/notifications?seen=false
-
-```
-
-Pagination:
-
-```
-
-http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
-
-```
-
-- Use `_page` and optionally `_limit` to paginate returned data.
-
-Response:
-
-- In the `Link` header you'll get `first`, `prev`, `next` and `last` links and `unseenCount` (unseen notifications count).
-
-- `X-Total-Count` header (total notifications count) is included in the response
-
 ## Running Locally
 
 1. Clone project locally
@@ -87,3 +51,39 @@ yarn  dev
 pnpm  dev
 
 ```
+
+## Data API
+
+This api uses json-server, see official documentation to learn more about it: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
+
+Notifications route:
+
+```
+
+http://localhost:3001/notifications
+
+```
+
+Unread notifications route:
+
+```
+
+http://localhost:3001/notifications?seen=false
+
+```
+
+Pagination:
+
+```
+
+http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
+
+```
+
+- Use `_page` and optionally `_limit` to paginate returned data.
+
+Response:
+
+- In the `Link` header you'll get `first`, `prev`, `next` and `last` links and `unseenCount` (unseen notifications count).
+
+- `X-Total-Count` header (total notifications count) is included in the response
