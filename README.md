@@ -1,27 +1,89 @@
-# React + TypeScript + Vite
+# Notifications Exercise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Server API
 
-Currently, two official plugins are available:
+This api uses json-server, see official documentation to learn more about it: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Notifications route:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+http://localhost:3001/notifications
+
+```
+
+Unread notifications route:
+
+```
+
+http://localhost:3001/notifications?seen=false
+
+```
+
+Pagination:
+
+```
+
+http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
+
+```
+
+- Use `_page` and optionally `_limit` to paginate returned data.
+
+Response:
+
+- In the `Link` header you'll get `first`, `prev`, `next` and `last` links and `unseenCount` (unseen notifications count).
+
+- `X-Total-Count` header (total notifications count) is included in the response
+
+## Running Locally
+
+1. Clone project locally
+
+2. Install dependencies
+
+```bash
+
+npm  install
+
+# or
+
+yarn  install
+
+# or
+
+pnpm  install
+
+```
+
+3. Start server locally
+
+```bash
+
+npm  run  serve
+
+# or
+
+yarn  serve
+
+# or
+
+pnpm  serve
+
+```
+
+4. Start frontend locally
+
+```bash
+
+npm  run  dev
+
+# or
+
+yarn  dev
+
+# or
+
+pnpm  dev
+
+```
