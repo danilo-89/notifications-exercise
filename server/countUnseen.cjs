@@ -2,12 +2,13 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = (req, res, next) => {
-	const dbPath = path.join(__dirname, 'db.json');
+	const dbPath = path.join(__dirname, 'db.json'); // Adjust the path as needed
 
 	fs.readFile(dbPath, 'utf8', (err, data) => {
 		if (err) {
 			console.error('Error reading db.json:', err);
-			res.header('X-Unseen-Count', '0');
+			// res.header('Access-Control-Expose-Headers', 'X-Unseen-Count');
+			res.header('Link', '0; rel="unseenCount"');
 			return next();
 		}
 
@@ -16,7 +17,8 @@ module.exports = (req, res, next) => {
 			db = JSON.parse(data);
 		} catch (parseErr) {
 			console.error('Error parsing db.json:', parseErr);
-			res.header('X-Unseen-Count', '0');
+			// res.header('Access-Control-Expose-Headers', 'X-Unseen-Count');
+			res.header('Link', '0; rel="unseenCount"');
 			return next();
 		}
 
@@ -25,18 +27,9 @@ module.exports = (req, res, next) => {
 			(notification) => !notification.seen
 		).length;
 
-		// Get any existing exposed headers.
-		const existingExposedHeaders =
-			res.getHeader('Access-Control-Expose-Headers') || '';
-		const headersToExpose = ['X-Unseen-Count'].concat(
-			existingExposedHeaders.split(',')
-		);
-
-		// Set the custom header and also expose it for CORS.
-		res.header('Access-Control-Expose-Headers', headersToExpose.join(','));
-		res.header('X-Unseen-Count', unseenCount.toString());
-
-		// Continue to the next middleware in the chain.
+		// console.log('Setting Headers: X-Unseen-Count =', unseenCount.toString()); // Debug statement
+		// res.header('Access-Control-Expose-Headers', 'X-Unseen-Count');
+		res.header('Link', `${unseenCount.toString()}; rel="unseenCount"`);
 		next();
 	});
 };
