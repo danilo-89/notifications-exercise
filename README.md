@@ -4,7 +4,15 @@
 
 1. Clone project locally
 
-2. Install dependencies
+2. Install JSON Server
+
+```bash
+
+npm install -g json-server
+
+```
+
+3. Install dependencies
 
 ```bash
 
@@ -20,7 +28,7 @@ pnpm  install
 
 ```
 
-3. Start server locally
+4. Start server locally
 
 ```bash
 
@@ -36,7 +44,7 @@ pnpm  serve
 
 ```
 
-4. Start frontend locally
+5. Start frontend locally
 
 ```bash
 
