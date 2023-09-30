@@ -1,11 +1,31 @@
 const fs = require('fs');
 const path = require('path');
+const z = require('zod');
+
+const postNotificationSchema = z.object({
+	body: z.string(),
+	user: z.string().optional(),
+});
 
 module.exports = (req, res, next) => {
 	const dbPath = path.join(__dirname, 'db.json'); // Adjust the path as needed
 
-	// console.log({ req }, { res }, { next });
+	// console.log({ req });
 	// console.log(req.method, req.url);
+
+	// CREATE NEW NOTIFICATION
+	if (req.method === 'POST' && req.url === '/notifications') {
+		try {
+			postNotificationSchema.parse(req.body);
+			req.body.createdAt = Date.now();
+			req.body.seen = false;
+		} catch (err) {
+			console.log(err);
+			return res
+				.status(400)
+				.json({ message: 'Invalid input', error: err.message });
+		}
+	}
 
 	fs.readFile(dbPath, 'utf8', (err, data) => {
 		if (err) {
