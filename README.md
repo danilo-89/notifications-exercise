@@ -92,6 +92,6 @@ http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
 
 Response:
 
-- In the `Link` header you'll get `first`, `prev`, `next` and `last` links and `unseenCount` (unseen notifications count).
+- In the `Link` header you'll get `first`, `prev`, `next` and `last` links.
 
-- `X-Total-Count` header (total notifications count) is included in the response
+- `X-Total` header (total notifications count) and `X-Unseen` (total unseen notifications count) header are also included.
