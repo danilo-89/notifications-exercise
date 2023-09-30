@@ -100,10 +100,7 @@ route: http://localhost:3001/notifications
 method: POST
 body: {
    {
-      id: number,
-      seen: boolean,
       body: string,
-      date: string,
       user?: string
     },
 }
@@ -111,6 +108,8 @@ route: http://localhost:3001/notifications
 ```
 
 ### Response:
+
+Headers:
 
 - In the `Link` header you'll get `first`, `prev`, `next` and `last` links.
 
