@@ -7,8 +7,9 @@ module.exports = (req, res, next) => {
 	fs.readFile(dbPath, 'utf8', (err, data) => {
 		if (err) {
 			console.error('Error reading db.json:', err);
-			// res.header('Access-Control-Expose-Headers', 'X-Unseen-Count');
-			res.header('Link', '0; rel="unseenCount"');
+			res.header('Access-Control-Expose-Headers', 'X-Total, X-Unseen');
+			res.header('X-Total', '0');
+			res.header('X-Unseen', '0');
 			return next();
 		}
 
@@ -17,8 +18,9 @@ module.exports = (req, res, next) => {
 			db = JSON.parse(data);
 		} catch (parseErr) {
 			console.error('Error parsing db.json:', parseErr);
-			// res.header('Access-Control-Expose-Headers', 'X-Unseen-Count');
-			res.header('Link', '0; rel="unseenCount"');
+			res.header('Access-Control-Expose-Headers', 'X-Total, X-Unseen');
+			res.header('X-Total', '0');
+			res.header('X-Unseen', '0');
 			return next();
 		}
 
@@ -28,8 +30,9 @@ module.exports = (req, res, next) => {
 		).length;
 
 		// console.log('Setting Headers: X-Unseen-Count =', unseenCount.toString()); // Debug statement
-		// res.header('Access-Control-Expose-Headers', 'X-Unseen-Count');
-		res.header('Link', `${unseenCount.toString()}; rel="unseenCount"`);
+		res.header('Access-Control-Expose-Headers', 'X-Total, X-Unseen');
+		res.header('X-Total', notifications.length.toString());
+		res.header('X-Unseen', unseenCount.toString());
 		next();
 	});
 };
