@@ -4,15 +4,7 @@
 
 1. Clone project locally
 
-2. Install JSON Server
-
-```bash
-
-npm install -g json-server
-
-```
-
-3. Install dependencies
+2. Install dependencies
 
 ```bash
 
@@ -28,7 +20,7 @@ pnpm  install
 
 ```
 
-4. Start server locally
+3. Start server locally
 
 ```bash
 
@@ -44,7 +36,7 @@ pnpm  serve
 
 ```
 
-5. Start frontend locally
+4. Start frontend locally
 
 ```bash
 
@@ -64,33 +56,61 @@ pnpm  dev
 
 This api uses json-server, see official documentation to learn more about it: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
 
-Notifications route:
+### All Notifications:
 
 ```
-
-http://localhost:3001/notifications
-
+method: GET
+route: http://localhost:3001/notifications
 ```
 
-Unread notifications route:
+### Unseen notifications:
 
 ```
-
-http://localhost:3001/notifications?seen=false
-
+method: GET
+route: http://localhost:3001/notifications?seen=false
 ```
 
-Pagination:
-
-```
-
-http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
-
-```
+### Paginated notifications:
 
 - Use `_page` and optionally `_limit` to paginate returned data.
 
-Response:
+```
+method: GET
+route: http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
+```
+
+### Mark notification as seen:
+
+```
+method: PATCH
+body: {seen: false}
+route: http://localhost:3001/notifications/{id}
+```
+
+### Mark all notifications as seen:
+
+```
+method: PUT
+route: http://localhost:3001/notifications
+```
+
+### Post new notification:
+
+```
+method: POST
+body: {
+   {
+      id: number,
+      seen: boolean,
+      body: string,
+      date: string,
+      user?: string
+    },
+}
+route: http://localhost:3001/notifications
+```
+
+### Response:
 
 - In the `Link` header you'll get `first`, `prev`, `next` and `last` links.
 
