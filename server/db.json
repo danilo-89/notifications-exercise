@@ -2,667 +2,661 @@
   "notifications": [
     {
       "id": "1",
-      "seen": true,
+      "seen": false,
       "body": "🎉 Sarah commented on your post: 'Amazing!'",
-      "date": "2023-01-01T00:00:00Z",
+      "createdAt": 1672531200000,
       "user": "SarahM"
     },
     {
       "id": "2",
-      "seen": true,
-      "body": "👍 Mike liked your status update.",
-      "date": "2023-01-02T00:00:00Z",
+      "seen": false,
+      "body": "👍 Mike liked your status up.",
+      "createdAt": 1672617600000,
       "user": "MikeR"
     },
     {
       "id": "3",
       "seen": false,
       "body": "👤 Emily and 2 others followed you.",
-      "date": "2023-01-03T00:00:00Z",
+      "createdAt": 1672704000000,
       "user": "EmilyB"
     },
     {
       "id": "4",
       "seen": true,
       "body": "🔔 Reminder: You have an upcoming event.",
-      "date": "2023-01-04T00:00:00Z"
+      "createdAt": 1672790400000
     },
     {
       "id": "5",
       "seen": false,
       "body": "🎁 John sent you a gift!",
-      "date": "2023-01-05T00:00:00Z",
+      "createdAt": 1672876800000,
       "user": "JohnD"
     },
     {
       "id": "6",
       "seen": true,
       "body": "💬 Alex mentioned you in a comment.",
-      "date": "2023-01-06T00:00:00Z",
+      "createdAt": 1672963200000,
       "user": "AlexW"
     },
     {
       "id": "7",
       "seen": false,
       "body": "📸 Linda tagged you in a photo.",
-      "date": "2023-01-07T00:00:00Z",
+      "createdAt": 1673049600000,
       "user": "LindaG"
     },
     {
       "id": "8",
       "seen": true,
       "body": "📅 Event 'Summer Fest' is happening tomorrow!",
-      "date": "2023-01-08T00:00:00Z"
+      "createdAt": 1673136000000
     },
     {
       "id": "9",
       "seen": false,
       "body": "❤️ Katie and 3 others liked your photo.",
-      "date": "2023-01-09T00:00:00Z",
+      "createdAt": 1673222400000,
       "user": "KatieL"
     },
     {
       "id": "10",
       "seen": true,
       "body": "👥 James sent you a friend request.",
-      "date": "2023-01-10T00:00:00Z",
+      "createdAt": 1673308800000,
       "user": "JamesS"
     },
     {
       "id": "11",
       "seen": true,
       "body": "🎤 Podcast Alert: 'Science Wonders' has a new episode.",
-      "date": "2023-01-11T00:00:00Z",
+      "createdAt": 1673395200000,
       "user": "PodcastFan"
     },
     {
       "id": "12",
       "seen": false,
       "body": "💼 Peter shared a job posting: 'Graphic Designer Needed'.",
-      "date": "2023-01-12T00:00:00Z",
+      "createdAt": 1673481600000,
       "user": "PeterK"
     },
     {
       "id": "13",
       "seen": true,
       "body": "📖 Reading Club: 'New Book Announcement!'",
-      "date": "2023-01-13T00:00:00Z"
+      "createdAt": 1673568000000
     },
     {
       "id": "14",
       "seen": false,
       "body": "🎮 Gaming Alert: 'New Game Release!'",
-      "date": "2023-01-14T00:00:00Z",
+      "createdAt": 1673654400000,
       "user": "GamerGuy"
     },
     {
       "id": "15",
       "seen": true,
       "body": "🍕 Foodie Alert: 'Top 10 Pizza Places in Town'.",
-      "date": "2023-01-15T00:00:00Z"
+      "createdAt": 1673740800000
     },
     {
       "id": "16",
       "seen": false,
-      "body": "🏀 Sports Update: 'Latest Basketball Scores'.",
-      "date": "2023-01-16T00:00:00Z",
+      "body": "🏀 Sports Up: 'Latest Basketball Scores'.",
+      "createdAt": 1673827200000,
       "user": "SportsFan"
     },
     {
       "id": "17",
       "seen": true,
       "body": "🐶 Pet Lover: 'Cute Dog Pictures Compilation'.",
-      "date": "2023-01-17T00:00:00Z",
+      "createdAt": 1673913600000,
       "user": "PetLover"
     },
     {
       "id": "18",
       "seen": false,
       "body": "🌳 Environment: 'How to Live Sustainably'.",
-      "date": "2023-01-18T00:00:00Z"
+      "createdAt": 1674000000000
     },
     {
       "id": "19",
       "seen": true,
       "body": "🎵 Music Lover: 'Top 10 Songs This Week'.",
-      "date": "2023-01-19T00:00:00Z",
+      "createdAt": 1674086400000,
       "user": "MusicFan"
     },
     {
       "id": "20",
       "seen": false,
       "body": "🍳 Cooking: 'Easy Breakfast Recipes'.",
-      "date": "2023-01-20T00:00:00Z"
+      "createdAt": 1674172800000
     },
     {
       "id": "21",
       "seen": true,
       "body": "🌟 StarGazer: 'Top 5 Astronomy Events This Month'",
-      "date": "2023-01-21T00:00:00Z",
+      "createdAt": 1674259200000,
       "user": "AstroFan"
     },
     {
       "id": "22",
       "seen": false,
       "body": "👟 Runners Club: 'Weekly Running Challenge Starts Today!'",
-      "date": "2023-01-22T00:00:00Z",
+      "createdAt": 1674345600000,
       "user": "Runner123"
     },
     {
       "id": "23",
       "seen": true,
       "body": "🍎 HealthNut: 'Top 10 Healthy Snacks'",
-      "date": "2023-01-23T00:00:00Z"
+      "createdAt": 1674432000000
     },
     {
       "id": "24",
       "seen": false,
       "body": "💧 WaterSaver: 'Tips to Reduce Water Usage'",
-      "date": "2023-01-24T00:00:00Z",
+      "createdAt": 1674518400000,
       "user": "EcoFriendly"
     },
     {
       "id": "25",
       "seen": true,
       "body": "🌐 WorldNews: 'Latest Headlines Around the World'",
-      "date": "2023-01-25T00:00:00Z"
+      "createdAt": 1674604800000
     },
     {
       "id": "26",
       "seen": false,
       "body": "📚 BookWorm: '5 Must-Read Books This Year'",
-      "date": "2023-01-26T00:00:00Z",
+      "createdAt": 1674691200000,
       "user": "Reader89"
     },
     {
       "id": "27",
       "seen": true,
       "body": "🎧 MusicMood: 'Discover New Music For Your Playlist'",
-      "date": "2023-01-27T00:00:00Z",
+      "createdAt": 1674777600000,
       "user": "Melody"
     },
     {
       "id": "28",
       "seen": false,
       "body": "🛒 Shopaholic: 'Best Deals of the Week!'",
-      "date": "2023-01-28T00:00:00Z"
+      "createdAt": 1674864000000
     },
     {
       "id": "29",
       "seen": true,
       "body": "🚴‍♂️ CyclePath: 'Join the Monthly Cycling Challenge'",
-      "date": "2023-01-29T00:00:00Z",
+      "createdAt": 1674950400000,
       "user": "BikerDude"
     },
     {
       "id": "30",
       "seen": false,
       "body": "🌿 PlantLover: 'How to Care for Your Indoor Plants'",
-      "date": "2023-01-30T00:00:00Z",
+      "createdAt": 1675036800000,
       "user": "GreenThumb"
     },
     {
       "id": "31",
       "seen": true,
       "body": "🎨 ArtInspire: 'Explore the Latest Art Trends'",
-      "date": "2023-01-31T00:00:00Z"
+      "createdAt": 1675123200000
     },
     {
       "id": "32",
       "seen": false,
       "body": "🎮 GameNerd: 'Top 5 Video Games Coming Out This Month'",
-      "date": "2023-02-01T00:00:00Z",
+      "createdAt": 1675209600000,
       "user": "GamerGirl"
     },
     {
       "id": "33",
       "seen": true,
       "body": "🌻 GardenGuru: 'Best Plants to Grow in Spring'",
-      "date": "2023-02-02T00:00:00Z",
+      "createdAt": 1675296000000,
       "user": "GardenGuru"
     },
     {
       "id": "34",
       "seen": false,
       "body": "🎬 MovieBuff: 'Latest Movie Reviews and Ratings'",
-      "date": "2023-02-03T00:00:00Z"
+      "createdAt": 1675382400000
     },
     {
       "id": "35",
       "seen": true,
       "body": "🏆 SportsFan: 'Highlights from Last Night's Game'",
-      "date": "2023-02-04T00:00:00Z",
+      "createdAt": 1675468800000,
       "user": "SportsFan"
     },
     {
       "id": "36",
       "seen": false,
       "body": "💻 CodeWizard: 'Top Coding Challenges to Try'",
-      "date": "2023-02-05T00:00:00Z",
+      "createdAt": 1675555200000,
       "user": "CodeWizard"
     },
     {
       "id": "37",
       "seen": true,
       "body": "🌟 StarGazer: 'Don't Miss the Meteor Shower Tonight!'",
-      "date": "2023-02-06T00:00:00Z"
+      "createdAt": 1675641600000
     },
     {
       "id": "38",
       "seen": false,
       "body": "👟 RunnersClub: 'Join the Marathon Training Group'",
-      "date": "2023-02-07T00:00:00Z",
+      "createdAt": 1675728000000,
       "user": "RunnersClub"
     },
     {
       "id": "39",
       "seen": true,
       "body": "📚 BookClub: 'Book of the Month Discussion'",
-      "date": "2023-02-08T00:00:00Z"
+      "createdAt": 1675814400000
     },
     {
       "id": "40",
       "seen": false,
       "body": "🧘‍♀️ YogaLife: 'Explore Different Yoga Poses'",
-      "date": "2023-02-09T00:00:00Z",
+      "createdAt": 1675900800000,
       "user": "YogaLife"
     },
     {
       "id": "41",
       "seen": true,
       "body": "🍳 CookingMaster: 'Discover New Recipes'",
-      "date": "2023-02-10T00:00:00Z"
+      "createdAt": 1675987200000
     },
     {
       "id": "42",
       "seen": false,
       "body": "🌐 WorldExplorer: 'Top Travel Destinations 2023'",
-      "date": "2023-02-11T00:00:00Z",
+      "createdAt": 1676073600000,
       "user": "WorldExplorer"
     },
     {
       "id": "43",
       "seen": true,
       "body": "🎭 ArtEnthusiast: 'Explore Local Art Galleries'",
-      "date": "2023-02-12T00:00:00Z",
+      "createdAt": 1676160000000,
       "user": "ArtEnthusiast"
     },
     {
       "id": "44",
       "seen": false,
       "body": "📷 PhotoPro: 'Top Photography Tips and Tricks'",
-      "date": "2023-02-13T00:00:00Z"
+      "createdAt": 1676246400000
     },
     {
       "id": "45",
       "seen": true,
       "body": "🎸 MusicLover: 'Discover New Bands and Artists'",
-      "date": "2023-02-14T00:00:00Z",
+      "createdAt": 1676332800000,
       "user": "MusicLover"
     },
     {
       "id": "46",
       "seen": false,
       "body": "🏋️ FitnessFreak: 'New Workout Routines to Try'",
-      "date": "2023-02-15T00:00:00Z",
+      "createdAt": 1676419200000,
       "user": "FitnessFreak"
     },
     {
       "id": "47",
       "seen": true,
       "body": "🍵 TeaConnoisseur: 'Explore Exotic Teas from Around the World'",
-      "date": "2023-02-16T00:00:00Z"
+      "createdAt": 1676505600000
     },
     {
       "id": "48",
       "seen": false,
       "body": "🌿 EcoWarrior: 'Learn More About Sustainable Living'",
-      "date": "2023-02-17T00:00:00Z",
+      "createdAt": 1676592000000,
       "user": "EcoWarrior"
     },
     {
       "id": "49",
       "seen": true,
       "body": "🎮 GamerHub: 'Latest Game Releases and Reviews'",
-      "date": "2023-02-18T00:00:00Z"
+      "createdAt": 1676678400000
     },
     {
       "id": "50",
       "seen": false,
       "body": "🐾 AnimalLover: 'Cute and Adorable Animal Videos'",
-      "date": "2023-02-19T00:00:00Z",
+      "createdAt": 1676764800000,
       "user": "AnimalLover"
     },
     {
       "id": "51",
       "seen": true,
       "body": "🛒 ShopSmart: 'Find the Best Deals and Discounts'",
-      "date": "2023-02-20T00:00:00Z"
+      "createdAt": 1676851200000
     },
     {
       "id": "52",
       "seen": false,
       "body": "🍎 NutritionNerd: 'Healthy Eating Tips and Advice'",
-      "date": "2023-02-21T00:00:00Z",
+      "createdAt": 1676937600000,
       "user": "NutritionNerd"
     },
     {
       "id": "53",
       "seen": true,
       "body": "🛫 TravelBuddy: 'Top Travel Destinations on a Budget'",
-      "date": "2023-02-22T00:00:00Z"
+      "createdAt": 1677024000000
     },
     {
       "id": "54",
       "seen": false,
       "body": "📖 LitLover: 'Must-Read Books This Month'",
-      "date": "2023-02-23T00:00:00Z",
+      "createdAt": 1677110400000,
       "user": "LitLover"
     },
     {
       "id": "55",
       "seen": true,
       "body": "🔬 ScienceGeek: 'Latest Breakthroughs in Science'",
-      "date": "2023-02-24T00:00:00Z"
+      "createdAt": 1677196800000
     },
     {
       "id": "56",
       "seen": false,
       "body": "🧵 CraftCreator: 'DIY Projects to Try at Home'",
-      "date": "2023-02-25T00:00:00Z",
+      "createdAt": 1677283200000,
       "user": "CraftCreator"
     },
     {
       "id": "57",
       "seen": true,
       "body": "🌳 NatureNut: 'Explore Beautiful Natural Wonders'",
-      "date": "2023-02-26T00:00:00Z"
+      "createdAt": 1677369600000
     },
     {
       "id": "58",
       "seen": false,
       "body": "🎥 FilmFanatic: 'Top Movie Picks for the Weekend'",
-      "date": "2023-02-27T00:00:00Z",
+      "createdAt": 1677456000000,
       "user": "FilmFanatic"
     },
     {
       "id": "59",
       "seen": true,
       "body": "🍰 Baker’s Delight: 'Yummy Baking Recipes to Try'",
-      "date": "2023-02-28T00:00:00Z"
+      "createdAt": 1677542400000
     },
     {
       "id": "60",
       "seen": false,
-      "body": "🌐 TechTalk: 'Latest Tech News and Updates'",
-      "date": "2023-03-01T00:00:00Z",
+      "body": "🌐 TechTalk: 'Latest Tech News and Update'",
+      "createdAt": 1677628800000,
       "user": "TechTalk"
     },
     {
       "id": "61",
       "seen": true,
       "body": "🏡 HomeDecor: 'Stylish Decorating Ideas for Your Home'",
-      "date": "2023-03-02T00:00:00Z"
+      "createdAt": 1677715200000
     },
     {
       "id": "62",
       "seen": false,
       "body": "👩‍🍳 CookingClass: 'Learn to Cook with Online Classes'",
-      "date": "2023-03-03T00:00:00Z",
+      "createdAt": 1677801600000,
       "user": "CookingClass"
     },
     {
       "id": "63",
       "seen": true,
       "body": "💼 CareerAdvice: 'Top Tips for a Successful Career'",
-      "date": "2023-03-04T00:00:00Z"
+      "createdAt": 1677888000000
     },
     {
       "id": "64",
       "seen": false,
       "body": "💃 DanceStudio: 'Learn New Dance Moves and Routines'",
-      "date": "2023-03-05T00:00:00Z",
+      "createdAt": 1677974400000,
       "user": "DanceStudio"
     },
     {
       "id": "65",
       "seen": true,
       "body": "🍹 Mixology: 'Delicious Cocktail Recipes to Try'",
-      "date": "2023-03-06T00:00:00Z"
+      "createdAt": 1678060800000
     },
     {
       "id": "66",
       "seen": false,
       "body": "🌍 ExploreEarth: 'Amazing Places to Visit Around the World'",
-      "date": "2023-03-07T00:00:00Z",
+      "createdAt": 1678147200000,
       "user": "ExploreEarth"
     },
     {
       "id": "67",
       "seen": true,
       "body": "🧠 MindMatters: 'Tips for Improving Mental Health'",
-      "date": "2023-03-08T00:00:00Z"
+      "createdAt": 1678233600000
     },
     {
       "id": "68",
       "seen": false,
       "body": "🚗 AutoEnthusiast: 'Latest Car Models and Reviews'",
-      "date": "2023-03-09T00:00:00Z",
+      "createdAt": 1678320000000,
       "user": "AutoEnthusiast"
     },
     {
       "id": "69",
       "seen": true,
       "body": "🍴 FoodFest: 'Find Food Festivals Near You'",
-      "date": "2023-03-10T00:00:00Z"
+      "createdAt": 1678406400000
     },
     {
       "id": "70",
       "seen": false,
       "body": "👩‍🎨 ArtisticSoul: 'Explore Your Creative Side'",
-      "date": "2023-03-11T00:00:00Z",
+      "createdAt": 1678492800000,
       "user": "ArtisticSoul"
     },
     {
       "id": "71",
       "seen": true,
       "body": "🌺 FloraFancy: 'Discover Beautiful Flower Arrangements'",
-      "date": "2023-03-12T00:00:00Z"
+      "createdAt": 1678579200000
     },
     {
       "id": "72",
       "seen": false,
       "body": "🐟 AquariumAdvice: 'Tips for Maintaining Your Aquarium'",
-      "date": "2023-03-13T00:00:00Z",
+      "createdAt": 1678665600000,
       "user": "AquariumAdvice"
     },
     {
       "id": "73",
       "seen": true,
       "body": "🎼 ConcertGoer: 'Find Live Music Events Near You'",
-      "date": "2023-03-14T00:00:00Z"
+      "createdAt": 1678752000000
     },
     {
       "id": "74",
       "seen": false,
       "body": "🏕️ CampingTips: 'Best Camping Spots to Explore'",
-      "date": "2023-03-15T00:00:00Z",
+      "createdAt": 1678838400000,
       "user": "CampingTips"
     },
     {
       "id": "75",
       "seen": true,
       "body": "📷 PhotographyClub: 'Join and Share Your Best Shots'",
-      "date": "2023-03-16T00:00:00Z"
+      "createdAt": 1678924800000
     },
     {
       "id": "76",
       "seen": false,
       "body": "🌟 AstrologyZone: 'What Do the Stars Say About Your Future?'",
-      "date": "2023-03-17T00:00:00Z",
+      "createdAt": 1679011200000,
       "user": "AstrologyZone"
     },
     {
       "id": "77",
       "seen": true,
       "body": "🍔 FoodCritic: 'Top Rated Restaurants to Try'",
-      "date": "2023-03-18T00:00:00Z"
+      "createdAt": 1679097600000
     },
     {
       "id": "78",
       "seen": true,
       "body": "🌊 OceanLover: 'Explore the Wonders of the Ocean'",
-      "date": "2023-03-19T00:00:00Z",
+      "createdAt": 1679184000000,
       "user": "OceanLover"
     },
     {
       "id": "79",
       "seen": true,
       "body": "🌱 PlantParent: 'Tips for Taking Care of Your Plants'",
-      "date": "2023-03-20T00:00:00Z"
+      "createdAt": 1679270400000
     },
     {
       "id": "80",
       "seen": false,
       "body": "🎾 SportsCenter: 'Latest Sports News and Scores'",
-      "date": "2023-03-21T00:00:00Z",
+      "createdAt": 1679356800000,
       "user": "SportsCenter"
     },
     {
       "id": "81",
       "seen": true,
       "body": "🧁 BakingBuddy: 'Delicious Baking Recipes to Try'",
-      "date": "2023-03-22T00:00:00Z"
+      "createdAt": 1679443200000
     },
     {
       "id": "82",
       "seen": false,
       "body": "🎬 FilmForum: 'Discuss the Latest Movies and TV Shows'",
-      "date": "2023-03-23T00:00:00Z",
+      "createdAt": 1679529600000,
       "user": "FilmForum"
     },
     {
       "id": "83",
       "seen": true,
       "body": "🚴‍♂️ CyclingClub: 'Join and Meet Other Cycling Enthusiasts'",
-      "date": "2023-03-24T00:00:00Z"
+      "createdAt": 1679616000000
     },
     {
       "id": "84",
       "seen": false,
       "body": "🎤 KaraokeNight: 'Find Karaoke Bars and Events'",
-      "date": "2023-03-25T00:00:00Z",
+      "createdAt": 1679702400000,
       "user": "KaraokeNight"
     },
     {
       "id": "85",
       "seen": true,
       "body": "📚 LiteratureLovers: 'Discuss Your Favorite Books and Authors'",
-      "date": "2023-03-26T00:00:00Z"
+      "createdAt": 1679788800000
     },
     {
       "id": "86",
       "seen": true,
       "body": "🌺 FlowerFan: 'How to Arrange Flowers Like a Pro'",
-      "date": "2023-03-27T00:00:00Z"
+      "createdAt": 1679875200000
     },
     {
       "id": "87",
       "seen": false,
       "body": "🍜 Foodie: 'Discover Delicious Asian Cuisine'",
-      "date": "2023-03-28T00:00:00Z",
+      "createdAt": 1679961600000,
       "user": "Foodie"
     },
     {
       "id": "88",
       "seen": true,
       "body": "🌞 WeatherWatch: 'Weekly Weather Forecast'",
-      "date": "2023-03-29T00:00:00Z"
-    },
-    {
-      "id": "88",
-      "seen": true,
-      "body": "🌞 WeatherWatch: 'Weekly Weather Forecast'",
-      "date": "2023-03-29T00:00:00Z"
+      "createdAt": 1680048000000
     },
     {
       "id": "89",
       "seen": false,
       "body": "📈 StockInsight: 'Top Performing Stocks This Month'",
-      "date": "2023-03-30T00:00:00Z",
+      "createdAt": 1680134400000,
       "user": "InvestorMan"
     },
     {
       "id": "90",
       "seen": true,
       "body": "🏞️ Travel: 'Top 5 Hidden Gems in Europe'",
-      "date": "2023-03-31T00:00:00Z",
+      "createdAt": 1680220800000,
       "user": "TravelerJoe"
     },
     {
       "id": "91",
       "seen": false,
       "body": "🎵 New music album just dropped! Check it out.",
-      "date": "2023-04-01T00:00:00Z"
+      "createdAt": 1680307200000
     },
     {
       "id": "92",
       "seen": true,
       "body": "📚 New article: 'The Future of Tech'.",
-      "date": "2023-04-02T00:00:00Z",
+      "createdAt": 1680393600000,
       "user": "TechMag"
     },
     {
       "id": "93",
       "seen": false,
       "body": "🎂 Birthday Alert: Wish Emma a happy birthday!",
-      "date": "2023-04-03T00:00:00Z",
+      "createdAt": 1680480000000,
       "user": "EmmaH"
     },
     {
       "id": "94",
       "seen": true,
       "body": "💼 Job Alert: Software Engineer position available.",
-      "date": "2023-04-04T00:00:00Z"
+      "createdAt": 1680566400000
     },
     {
       "id": "95",
       "seen": false,
       "body": "📈 Your post 'Vacation Pics' got 50 likes!",
-      "date": "2023-04-05T00:00:00Z",
+      "createdAt": 1680652800000,
       "user": "TravelBlog"
     },
     {
       "id": "96",
       "seen": true,
       "body": "🏷️ Sale Alert: 50% off on all items!",
-      "date": "2023-04-06T00:00:00Z"
+      "createdAt": 1680739200000
     },
     {
       "id": "97",
       "seen": false,
       "body": "🍽️ New Recipe: 'Homemade Pizza'.",
-      "date": "2023-04-07T00:00:00Z",
+      "createdAt": 1680825600000,
       "user": "Foodie"
     },
     {
       "id": "98",
       "seen": true,
       "body": "🏋️‍♂️ Fitness Tip: '5 Exercises for a Healthy Heart'.",
-      "date": "2023-04-08T00:00:00Z",
+      "createdAt": 1680912000000,
       "user": "FitLife"
     },
     {
       "id": "99",
       "seen": false,
       "body": "🎨 Art Exhibit: 'Modern Art Showcase' starts tomorrow.",
-      "date": "2023-04-09T00:00:00Z"
+      "createdAt": 1680998400000
     },
     {
       "id": "100",
       "seen": true,
       "body": "🎥 Movie Night: 'Top 10 Sci-Fi Movies'.",
-      "date": "2023-04-10T00:00:00Z",
+      "createdAt": 1681084800000,
       "user": "MovieBuff"
     }
   ]
