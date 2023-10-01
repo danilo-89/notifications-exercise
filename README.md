@@ -83,7 +83,6 @@ route: http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
 
 ```
 method: PATCH
-body: {seen: false}
 route: http://localhost:3001/notifications/{id}
 ```
 
