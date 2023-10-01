@@ -2,6 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const z = require('zod');
 
+const isObjectEmpty = (objectName) => {
+	return Object.keys(objectName).length === 0;
+};
+
 const postNotificationSchema = z.object({
 	body: z.string(),
 	user: z.string().optional(),
@@ -10,7 +14,7 @@ const postNotificationSchema = z.object({
 module.exports = (req, res, next) => {
 	const dbPath = path.join(__dirname, 'db.json'); // Adjust the path as needed
 
-	// console.log({ req });
+	console.log({ req });
 	// console.log(req.method, req.url);
 
 	// CREATE NEW NOTIFICATION
@@ -19,6 +23,25 @@ module.exports = (req, res, next) => {
 			postNotificationSchema.parse(req.body);
 			req.body.createdAt = Date.now();
 			req.body.seen = false;
+		} catch (err) {
+			console.log(err);
+			return res
+				.status(400)
+				.json({ message: 'Invalid input', error: err.message });
+		}
+	}
+
+	if (
+		req.method === 'PATCH' &&
+		req.url.startsWith('/notifications/') &&
+		req.url.replace('/notifications/')
+	) {
+		try {
+			if (isObjectEmpty(req.body)) {
+				req.body.seen = true;
+			} else {
+				throw new Error('');
+			}
 		} catch (err) {
 			console.log(err);
 			return res
