@@ -31,6 +31,7 @@ module.exports = (req, res, next) => {
 		}
 	}
 
+	// READ SINGLE NOTIFICATION
 	if (
 		req.method === 'PATCH' &&
 		req.url.startsWith('/notifications/') &&
@@ -71,6 +72,7 @@ module.exports = (req, res, next) => {
 		}
 
 		if (
+			// READ ALL NOTIFICATION
 			req.method === 'PUT' &&
 			req.url === '/notifications' &&
 			db.notifications?.length
