@@ -1,11 +1,11 @@
-import './App.css';
+import './App.css'
 
 function App() {
-	return (
-		<>
-			<div>Notifications Exercise</div>
-		</>
-	);
+    return (
+        <>
+            <div>Notifications Exercise</div>
+        </>
+    )
 }
 
-export default App;
+export default App
