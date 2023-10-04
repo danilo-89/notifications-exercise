@@ -79,6 +79,15 @@ method: GET
 route: http://localhost:3001/notifications?_page={pageNumber}&_limit={limit}
 ```
 
+### Order of notifications:
+
+- Add `_sort` and `_order` (ascending order by default)
+
+```
+method: GET
+route: http://localhost:3001/notifications?_sort={sortParam}&_order={asc | desc}
+```
+
 ### Mark notification as seen:
 
 ```
