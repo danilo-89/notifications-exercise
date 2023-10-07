@@ -20,6 +20,10 @@ export const useNotificationsQuery = (unseen = false) =>
         queryFn: ({ pageParam }) => getNotifications(pageParam, unseen),
         initialPageParam: 1,
         staleTime: Infinity,
+        retry: 2,
+        retryDelay(failureCount, error) {
+            return 2000
+        },
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
             console.log({ lastPageParam })
             console.log('next', Number(lastPage?.meta?.next?._page))
