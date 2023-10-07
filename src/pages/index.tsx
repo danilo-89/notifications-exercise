@@ -13,14 +13,13 @@ import { useEffect, useState } from 'react'
 const Home = () => {
     const queryClient = useQueryClient()
 
-    const {
-        isPending,
-        error,
-        data,
-        fetchNextPage,
-        hasNextPage,
-        hasPreviousPage,
-    } = useNotificationsQuery()
+    const { data } = useNotificationsQuery()
+
+    useQuery({
+        queryKey: ['single-notifications-state'],
+        initialData: {},
+        queryFn: () => ({}),
+    })
 
     useEffect(() => {
         queryClient.setQueryData(['counts'], (currentData) => {
@@ -30,7 +29,7 @@ const Home = () => {
 
             const counts = data?.pages?.[0]?.counts
 
-            return counts || { all: undefined, unseen: undefined }
+            return { ...counts } || { all: undefined, unseen: undefined }
         })
     }, [data, queryClient])
 
