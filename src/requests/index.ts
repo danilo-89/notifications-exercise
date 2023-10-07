@@ -3,6 +3,7 @@ import { parseLinkHeader } from '@/utils/parseLinkHeader'
 import { AxiosHeaders } from 'axios'
 
 export const getNotifications = async (pageNumber: number, unseen = false) => {
+    // eslint-disable-next-line no-useless-catch
     try {
         const response = await baseApi.get(
             `notifications?${unseen ? 'seen=false&' : ''}_page=${
@@ -23,6 +24,11 @@ export const getNotifications = async (pageNumber: number, unseen = false) => {
                 ?.toString(),
         }
 
+        console.log(
+            'check counts',
+            (response?.headers as AxiosHeaders)?.get?.('x-total')
+        )
+
         const linkHeaderParsed = parseLinkHeader(linkHeader || '')
 
         // console.log({ linkHeaderParsed })
@@ -33,18 +39,20 @@ export const getNotifications = async (pageNumber: number, unseen = false) => {
             counts,
         }
     } catch (error: unknown) {
+        throw error
         console.log(error.message)
     }
 }
 
-export const postNotification = async () => {
+export const postNotification = async (submittedData) => {
     try {
         const response = await baseApi.post(
             'http://localhost:3001/notifications',
-            {
-                user: 'test',
-                body: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel eum enim, ex natus non fugit.',
-            }
+            submittedData
+            // {
+            //     user: 'test',
+            //     body: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel eum enim, ex natus non fugit.',
+            // }
         )
 
         const counts = {
@@ -68,9 +76,21 @@ export const readAllNotifications = async () => {
             'http://localhost:3001/notifications'
         )
 
-        return response
+        const counts = {
+            all: (response?.headers as AxiosHeaders)
+                ?.get?.('x-total')
+                ?.toString(),
+            unseen: (response?.headers as AxiosHeaders)
+                ?.get?.('x-unseen')
+                ?.toString(),
+        }
+
+        return {
+            data: response?.data,
+            counts,
+        }
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
 
@@ -94,6 +114,6 @@ export const readSingleNotification = async (id: string) => {
             counts,
         }
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
