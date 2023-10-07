@@ -1,6 +1,7 @@
 import { postNotification } from '@/requests'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
+import { FormEventHandler, useState } from 'react'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 const formSchema = z.object({
@@ -45,28 +46,60 @@ const Form = () => {
         },
     })
 
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+        try {
+            e.preventDefault()
+
+            const dataObject = {
+                user,
+                body,
+            }
+
+            formSchema.parse(dataObject)
+            mutate(dataObject)
+        } catch (err) {
+            console.log(err)
+            console.log(err?.errors)
+            toast(
+                <div>
+                    <div>test</div>
+                    <div>{err?.errors?.[0]?.message}</div>
+                </div>
+            )
+        }
+    }
+
     return (
         <form
-            className="flex flex-col w-[30rem] bg-slate-300 px-14 pt-20 pb-10 rounded-3xl mx-auto top-[50vh] relative -translate-y-1/2 z-[1]"
-            onSubmit={(e) => {
-                e.preventDefault()
-                mutate()
-            }}
+            className="relative top-[50vh] z-[1] mx-auto flex w-[30rem] -translate-y-1/2 flex-col rounded-3xl bg-whiteSmoke px-14 pb-10 pt-20"
+            onSubmit={(e) => handleSubmit(e)}
         >
+            <label
+                htmlFor="user"
+                className="mb-2 text-slateGray"
+            >
+                User name
+            </label>
             <input
-                className="border"
                 id="user"
                 name="user"
                 value={user}
                 onChange={(e) => setUser(e.target.value)}
                 type="text"
+                className="mb-6"
             />
+
+            <label
+                htmlFor="body"
+                className="mb-2 text-slateGray"
+            >
+                Message *
+            </label>
             <textarea
-                className="border"
+                className="mb-[4.375rem]"
                 id="body"
                 name="body"
-                cols="30"
-                rows="10"
+                rows={4}
                 // defaultValue=""
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
@@ -84,12 +117,15 @@ const Form = () => {
             >
                 invalidate
             </button>
-            <button
-                type="submit"
-                disabled={isLoading}
-            >
-                Submit
-            </button>
+            <div className="text-center">
+                <button
+                    type="submit"
+                    disabled={isLoading}
+                    className="bg-azure hover:bg-slateGray transition-colors text-white py-3 px-6 rounded-[1.875rem] disabled:bg-azure/10"
+                >
+                    Send Notification
+                </button>
+            </div>
         </form>
     )
 }
