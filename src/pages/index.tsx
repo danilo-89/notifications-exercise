@@ -13,7 +13,41 @@ import { useEffect, useState } from 'react'
 const Home = () => {
     const queryClient = useQueryClient()
 
-    const { data } = useNotificationsQuery()
+    // const { data, refetch } = useNotificationsQuery(false, false)
+
+    useEffect(() => {
+        // const queryData = queryClient.ensureQueryData({
+        //     queryKey: ['notifications', 'all'],
+        //     queryFn: async () => await getNotifications(1),
+        // })
+        const getInitialData = async () => {
+            try {
+                const response = await queryClient.fetchInfiniteQuery({
+                    queryKey: ['notifications', 'all'],
+                    initialPageParam: 1,
+                    queryFn: async (pageParam) =>
+                        await getNotifications(pageParam.pageParam),
+                })
+
+                queryClient.setQueryData(['counts'], (currentData) => {
+                    console.log(response)
+
+                    console.log('test', response)
+
+                    const counts = response?.pages?.[0]?.counts
+
+                    return (
+                        { ...counts } || { all: undefined, unseen: undefined }
+                    )
+                })
+
+                console.log({ response })
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getInitialData()
+    }, [queryClient])
 
     useQuery({
         queryKey: ['single-notifications-state'],
@@ -21,17 +55,17 @@ const Home = () => {
         queryFn: () => ({}),
     })
 
-    useEffect(() => {
-        queryClient.setQueryData(['counts'], (currentData) => {
-            console.log(data)
+    // useEffect(() => {
+    //     queryClient.setQueryData(['counts'], (currentData) => {
+    //         console.log(data)
 
-            console.log('test', data)
+    //         console.log('test', data)
 
-            const counts = data?.pages?.[0]?.counts
+    //         const counts = data?.pages?.[0]?.counts
 
-            return { ...counts } || { all: undefined, unseen: undefined }
-        })
-    }, [data, queryClient])
+    //         return { ...counts } || { all: undefined, unseen: undefined }
+    //     })
+    // }, [data, queryClient])
 
     // console.log(data)
     // console.log({ hasPreviousPage }, { hasNextPage })
