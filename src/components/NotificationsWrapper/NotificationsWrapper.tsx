@@ -21,12 +21,17 @@ const NotificationsWrapper = () => {
     // const queryClient = useQueryClient()
     const queryClient = useQueryClient()
 
-    console.log('cache', queryClient.getQueryData(['notifications', null]))
+    // console.log('cache', queryClient.getQueryData(['notifications', null]))
 
     const counts = queryClient.getQueryState(['counts'])
     // const queryData = queryClient.getQueryData(['notifications'])
 
     const [showUnreadTab, setShowUnreadTab] = useState(false)
+
+    // const nt = queryClient.getQueryState([
+    //     'notifications',
+    //     showUnreadTab ? 'unseen' : 'all',
+    // ])
 
     const {
         isFetching,
@@ -38,30 +43,41 @@ const NotificationsWrapper = () => {
         isFetchingNextPage,
         status,
         isStale,
+        refetch,
     } = useNotificationsQuery(showUnreadTab)
+
+    // queryClient.is
 
     console.log({ counts })
     console.log('find params', data)
     console.log({ status })
     console.log({ isStale })
 
-    useEffect(() => {
-        // queryClient.ensureQueryData({ queryKey: ['notifications', null] })
-        // return () => {
-        //     if (isStale) {
-        //         queryClient.setQueriesData(
-        //             { queryKey: ['notifications'], exact: false },
-        //             (currentData) => {
-        //                 console.log({ currentData })
-        //                 if (currentData) {
-        //                     return { pages: [], pageParams: [1] }
-        //                 }
-        //                 return currentData
-        //             }
-        //         )
-        //     }
-        // }
-    }, [queryClient])
+    // useEffect(() => {
+    //     if (nt?.isInvalidated) {
+    //         queryClient.resetQueries({
+    //             queryKey: ['notifications'],
+    //             exact: false,
+    //             type: 'active',
+    //         })
+    //         refetch()
+    //     }
+    //     // queryClient.ensureQueryData({ queryKey: ['notifications', null] })
+    //     // return () => {
+    //     //     if (isStale) {
+    //     //         queryClient.setQueriesData(
+    //     //             { queryKey: ['notifications'], exact: false },
+    //     //             (currentData) => {
+    //     //                 console.log({ currentData })
+    //     //                 if (currentData) {
+    //     //                     return { pages: [], pageParams: [1] }
+    //     //                 }
+    //     //                 return currentData
+    //     //             }
+    //     //         )
+    //     //     }
+    //     // }
+    // }, [nt?.isInvalidated, queryClient, refetch])
 
     // 'single-notifications-state'
 
@@ -83,7 +99,7 @@ const NotificationsWrapper = () => {
             })
 
             queryClient.resetQueries({
-                queryKey: ['notifications', null],
+                queryKey: ['notifications', 'all'],
                 exact: true,
             })
 
