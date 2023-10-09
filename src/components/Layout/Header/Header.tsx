@@ -41,7 +41,7 @@ const Header = () => {
         staleTime: Infinity,
     })
 
-    const nt = queryClient.getQueryState(['notifications', null])
+    const nt = queryClient.getQueryState(['notifications', 'all'])
 
     console.log({ nt })
 
