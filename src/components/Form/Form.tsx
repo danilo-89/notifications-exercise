@@ -141,19 +141,6 @@ const Form = () => {
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
             />
-
-            <button
-                onClick={() => {
-                    // queryClient.invalidateQueries({
-                    //     queryKey: ['notifications'],
-                    //     refetchType: 'none',
-                    // })
-                    // queryClient.resetQueries({ queryKey: ['notifications'] })
-                    queryClient.removeQueries({ queryKey: ['notifications'] })
-                }}
-            >
-                invalidate
-            </button>
             <div className="text-center">
                 <button
                     type="submit"
