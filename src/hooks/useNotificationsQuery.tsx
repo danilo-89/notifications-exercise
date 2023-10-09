@@ -1,6 +1,8 @@
-import { getNotifications } from '@/requests'
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
+
+// Requests
+import { getNotifications } from '@/requests'
 
 // const { isPending, error, data, fetchNextPage, hasNextPage, hasPreviousPage } =
 //     useInfiniteQuery({
@@ -18,7 +20,7 @@ import { useEffect } from 'react'
 export const useNotificationsQuery = (unseen = false, enabled = true) => {
     const queryClient = useQueryClient()
 
-    const a = useInfiniteQuery({
+    const queryData = useInfiniteQuery({
         enabled,
         queryKey: ['notifications', unseen ? 'unseen' : 'all'],
         queryFn: ({ pageParam }) => getNotifications(pageParam, unseen),
@@ -37,16 +39,18 @@ export const useNotificationsQuery = (unseen = false, enabled = true) => {
     })
 
     useEffect(() => {
-        queryClient.setQueryData(['counts'], (currentData) => {
-            console.log(a?.data)
+        if (queryData?.data) {
+            queryClient.setQueryData(['counts'], (currentData) => {
+                console.log(queryData.data)
 
-            console.log('test', a?.data)
+                console.log('test', queryData.data)
 
-            const counts = a?.data?.pages?.[0]?.counts
+                const counts = queryData.data?.pages?.[0]?.counts
 
-            return { ...counts } || { all: undefined, unseen: undefined }
-        })
-    }, [a?.data, queryClient])
+                return { ...counts } || { all: undefined, unseen: undefined }
+            })
+        }
+    }, [queryData?.data, queryClient])
 
-    return a
+    return queryData
 }
