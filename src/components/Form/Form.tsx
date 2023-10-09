@@ -20,6 +20,7 @@ const Form = () => {
         isError,
         isIdle,
         isLoading,
+        isPending,
         isPaused,
         isSuccess,
         failureCount,
@@ -33,16 +34,52 @@ const Form = () => {
         mutationFn: postNotification,
         onSuccess(responseData, variables, context) {
             console.log(responseData.data)
-            queryClient.setQueriesData(
-                { queryKey: ['notifications'] },
-                (data) => {
-                    console.log(data)
-                    return {
-                        ...data,
-                        pages: [{ ...responseData }, ...data.pages],
-                    }
-                }
-            )
+
+            // queryClient.removeQueries({
+            //     queryKey: ['notifications'],
+            //     exact: false,
+            //     // type:
+            //     // fetchStatus:
+            // })
+            // queryClient.ensureQueryData({
+            //     queryKey: ['notifications', null],
+            //     // exact: false,
+            //     // type:
+            //     // fetchStatus:
+            // })
+            queryClient.resetQueries({
+                queryKey: ['notifications'],
+                exact: false,
+                type: 'active',
+            })
+
+            queryClient.invalidateQueries({
+                queryKey: ['notifications'],
+                exact: false,
+                type: 'inactive',
+                refetchType: 'none',
+            })
+
+            // queryClient.setQueriesData(
+            //     { queryKey: ['notifications'] },
+            //     (data) => {
+            //         console.log('old data', data)
+            //         // return {
+            //         //     ...data,
+            //         //     pages: [
+            //         //         {
+            //         //             ...data.pages[0], // Copy the first page object
+            //         //             data: [responseData, ...data.pages[0].data], // Add the new entry to the beginning of the data array
+            //         //         },
+            //         //         ...data.pages.slice(1), // Copy the rest of the pages
+            //         //     ],
+            //         // }
+            //         return {
+            //             ...data,
+            //             pages: [{ ...responseData }, ...data.pages],
+            //         }
+            //     }
+            // )
         },
     })
 
@@ -120,7 +157,7 @@ const Form = () => {
             <div className="text-center">
                 <button
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isPending}
                     className="bg-azure hover:bg-slateGray transition-colors text-white py-3 px-6 rounded-[1.875rem] disabled:bg-azure/10"
                 >
                     Send Notification
