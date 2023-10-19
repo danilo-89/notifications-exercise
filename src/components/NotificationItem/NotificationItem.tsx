@@ -40,21 +40,18 @@ const NotificationItem = ({ item }: IProps) => {
             )
         },
         onSuccess(responseData) {
-            // queryClient.setQueriesData(
-            //     { queryKey: ['notifications'], exact: false },
-            //     (currentData) => {
-            //         console.log({ currentData })
-            //         if (currentData) {
-            //             return { ...currentData, pageParams: [1] }
-            //         }
-            //         return currentData
-            //     }
-            // )
-
-            // Invalidate queries both for seen and unseen notifications
+            // invalidate query for active notifications query
             queryClient.invalidateQueries({
                 queryKey: ['notifications'],
+                exact: false,
+                type: 'active',
                 refetchType: 'none',
+            })
+            // clear data cache for inactive notifications query
+            queryClient.removeQueries({
+                queryKey: ['notifications'],
+                exact: false,
+                type: 'inactive',
             })
 
             // Set counts based on response
@@ -88,25 +85,10 @@ const NotificationItem = ({ item }: IProps) => {
         },
     })
 
-    // console.log(queryClient.getQueryState(['single-notifications-state']))
     const state:
         | { [key: string]: { seen: boolean; pending: boolean } }
         | undefined = queryClient.getQueryData(['single-notifications-state'])
     const itemState = state?.[item.id] || { seen: false, pending: false }
-
-    // queryClient.getQueryState(['single-notifications-state'])
-    // queryClient.getQueryData(['single-notifications-state'])
-    // const data = useMutationState({
-    //     filters: { mutationKey: ['read-single-notification', item.id] },
-    //     select: (mutation) => mutation.state.data,
-    // })
-
-    // const isMutatingPosts = useIsMutating({
-    //     mutationKey: ['read-single-notification', item.id],
-    // })
-
-    // console.log('ms', data)
-    // console.log('isMutatingPosts', isMutatingPosts)
 
     return (
         <li className="relative z-10 flex border-b border-[#DCDEE4]/50 py-4 pl-6 pr-4 text-xs">
