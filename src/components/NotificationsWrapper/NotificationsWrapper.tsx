@@ -34,14 +34,15 @@ const NotificationsWrapper = () => {
             console.log({ responseData })
             console.log({ context })
 
-            queryClient.invalidateQueries({
-                queryKey: ['notifications', 'unseen'],
-                refetchType: 'none',
+            // reset query for 'all' notifications query
+            queryClient.resetQueries({
+                queryKey: ['notifications', 'all'],
                 exact: true,
             })
 
-            queryClient.resetQueries({
-                queryKey: ['notifications', 'all'],
+            // clear data cache for 'unseen' notifications query
+            queryClient.removeQueries({
+                queryKey: ['notifications', 'unseen'],
                 exact: true,
             })
 
@@ -89,7 +90,21 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                 <div className="flex pl-6 pr-4">
                     <button
                         type="button"
-                        onClick={() => setShowUnreadTab(false)}
+                        onClick={() => {
+                            const isInvalidated = queryClient.getQueryState([
+                                'notifications',
+                                'all',
+                            ])?.isInvalidated
+
+                            if (isInvalidated) {
+                                queryClient.removeQueries({
+                                    queryKey: ['notifications', 'all'],
+                                    exact: true,
+                                })
+                            }
+
+                            setShowUnreadTab(false)
+                        }}
                         className={clsx(
                             'h-[2.125rem] relative inline-block px-3 text-xs mr-6 font-medium',
                             !showUnreadTab &&
@@ -100,7 +115,20 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                     </button>
                     <button
                         type="button"
-                        onClick={() => setShowUnreadTab(true)}
+                        onClick={() => {
+                            const isInvalidated = queryClient.getQueryState([
+                                'notifications',
+                                'unseen',
+                            ])?.isInvalidated
+
+                            if (isInvalidated) {
+                                queryClient.removeQueries({
+                                    queryKey: ['notifications', 'unseen'],
+                                    exact: true,
+                                })
+                            }
+                            setShowUnreadTab(true)
+                        }}
                         className={clsx(
                             'h-[2.125rem] relative inline-block px-3 text-xs font-medium',
                             showUnreadTab &&
