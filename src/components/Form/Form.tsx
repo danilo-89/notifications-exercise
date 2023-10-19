@@ -1,85 +1,29 @@
-import { postNotification } from '@/requests'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FormEventHandler, useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
-const formSchema = z.object({
-    user: z.string().optional(),
-    body: z.string().nonempty(),
-})
+// Schemas
+import { formSchema } from '@/schemas'
+
+// Requests
+import { postNotification } from '@/requests'
+import { ZodError } from 'zod'
 
 const Form = () => {
     const queryClient = useQueryClient()
     const [user, setUser] = useState('')
     const [body, setBody] = useState('')
 
-    const {
-        data,
-        error,
-        isError,
-        isIdle,
-        isLoading,
-        isPending,
-        isPaused,
-        isSuccess,
-        failureCount,
-        failureReason,
-        mutate,
-        mutateAsync,
-        reset,
-        status,
-    } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationKey: ['post-notification'],
         mutationFn: postNotification,
-        onSuccess(responseData, variables, context) {
-            console.log(responseData.data)
-
-            // queryClient.removeQueries({
-            //     queryKey: ['notifications'],
-            //     exact: false,
-            //     // type:
-            //     // fetchStatus:
-            // })
-            // queryClient.ensureQueryData({
-            //     queryKey: ['notifications', null],
-            //     // exact: false,
-            //     // type:
-            //     // fetchStatus:
-            // })
-            queryClient.resetQueries({
-                queryKey: ['notifications'],
-                exact: false,
-                type: 'active',
-            })
-
+        onSuccess() {
             queryClient.invalidateQueries({
                 queryKey: ['notifications'],
                 exact: false,
-                type: 'inactive',
+                type: 'all',
                 refetchType: 'none',
             })
-
-            // queryClient.setQueriesData(
-            //     { queryKey: ['notifications'] },
-            //     (data) => {
-            //         console.log('old data', data)
-            //         // return {
-            //         //     ...data,
-            //         //     pages: [
-            //         //         {
-            //         //             ...data.pages[0], // Copy the first page object
-            //         //             data: [responseData, ...data.pages[0].data], // Add the new entry to the beginning of the data array
-            //         //         },
-            //         //         ...data.pages.slice(1), // Copy the rest of the pages
-            //         //     ],
-            //         // }
-            //         return {
-            //             ...data,
-            //             pages: [{ ...responseData }, ...data.pages],
-            //         }
-            //     }
-            // )
         },
     })
 
@@ -94,15 +38,14 @@ const Form = () => {
 
             formSchema.parse(dataObject)
             mutate(dataObject)
-        } catch (err) {
-            console.log(err)
-            console.log(err?.errors)
-            toast(
-                <div>
-                    <div>test</div>
-                    <div>{err?.errors?.[0]?.message}</div>
-                </div>
-            )
+        } catch (err: unknown) {
+            if (err instanceof ZodError)
+                toast(
+                    <div>
+                        <div>test</div>
+                        <div>{err?.errors?.[0]?.message}</div>
+                    </div>
+                )
         }
     }
 
@@ -137,7 +80,6 @@ const Form = () => {
                 id="body"
                 name="body"
                 rows={4}
-                // defaultValue=""
                 onChange={(e) => setBody(e.target.value)}
                 value={body}
             />

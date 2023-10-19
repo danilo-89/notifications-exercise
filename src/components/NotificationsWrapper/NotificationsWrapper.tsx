@@ -1,19 +1,14 @@
-import { Fragment, useEffect, useState } from 'react'
-import {
-    useInfiniteQuery,
-    useMutation,
-    useQueryClient,
-} from '@tanstack/react-query'
+import { useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 
 // Hooks
 import { useNotificationsQuery } from '@/hooks/useNotificationsQuery'
 
 // Requests
-import { getNotifications, readAllNotifications } from '@/requests'
+import { readAllNotifications } from '@/requests'
 
 // Components
-import NotificationItem from '../NotificationItem'
 import LoaderDots from '../loaders/LoaderDots'
 import NotificationsList from '../NotificationsList'
 
@@ -35,15 +30,12 @@ const NotificationsWrapper = () => {
 
     const {
         isFetching,
-        error,
         data,
         fetchNextPage,
         hasNextPage,
-        hasPreviousPage,
         isFetchingNextPage,
         status,
         isStale,
-        refetch,
     } = useNotificationsQuery(showUnreadTab)
 
     // queryClient.is
@@ -53,39 +45,14 @@ const NotificationsWrapper = () => {
     console.log({ status })
     console.log({ isStale })
 
-    // useEffect(() => {
-    //     if (nt?.isInvalidated) {
-    //         queryClient.resetQueries({
-    //             queryKey: ['notifications'],
-    //             exact: false,
-    //             type: 'active',
-    //         })
-    //         refetch()
-    //     }
-    //     // queryClient.ensureQueryData({ queryKey: ['notifications', null] })
-    //     // return () => {
-    //     //     if (isStale) {
-    //     //         queryClient.setQueriesData(
-    //     //             { queryKey: ['notifications'], exact: false },
-    //     //             (currentData) => {
-    //     //                 console.log({ currentData })
-    //     //                 if (currentData) {
-    //     //                     return { pages: [], pageParams: [1] }
-    //     //                 }
-    //     //                 return currentData
-    //     //             }
-    //     //         )
-    //     //     }
-    //     // }
-    // }, [nt?.isInvalidated, queryClient, refetch])
+    const currentQuery = queryClient.getQueryState([
+        'notifications',
+        showUnreadTab ? 'unseen' : 'all',
+    ])
 
-    // 'single-notifications-state'
+    console.log(currentQuery)
 
-    const {
-        mutate,
-        isPending: isMutatePending,
-        isSuccess,
-    } = useMutation({
+    const { mutate, isPending: isMutatePending } = useMutation({
         mutationKey: ['read-all-notification'],
         mutationFn: readAllNotifications,
         onSuccess(responseData, variables, context) {
@@ -105,51 +72,13 @@ const NotificationsWrapper = () => {
 
             setShowUnreadTab(false)
 
-            queryClient.setQueryData(['counts'], (currentData) => {
-                const counts = responseData?.counts
+            queryClient.setQueryData(['counts'], () => {
+                const countsData = responseData?.counts
 
-                return counts || { all: undefined, unseen: undefined }
+                return countsData || { all: undefined, unseen: undefined }
             })
-            // queryClient.removeQueries({ queryKey: ['notifications'] })
         },
     })
-
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         queryClient.resetQueries({
-    //             queryKey: ['notifications', null],
-    //             exact: true,
-    //         })
-    //     }
-    // }, [isSuccess, queryClient])
-
-    // const sdfdsfs = queryClient.fetchInfiniteQuery
-
-    // console.log({ sdfdsf })
-    // const {
-    //     isPending,
-    //     error,
-    //     data,
-    //     fetchNextPage,
-    //     hasNextPage,
-    //     hasPreviousPage,
-    // } = useInfiniteQuery(['notifications'], getNotifications)
-
-    // const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    //     useInfiniteQuery({
-    //         queryKey: ['projects'],
-    //         queryFn: ({ pageParam }) => getNotifications(pageParam),
-    //         initialPageParam: 1,
-    //         getNextPageParam: (lastPage, allPages, lastPageParam) => {
-    //             console.log({ lastPageParam })
-    //             console.log('next', Number(lastPage?.meta?.next?._page))
-    //             return Number(lastPage?.meta?.next?._page) || undefined
-    //         },
-    //     })
-
-    // console.log({ queryState })
-    // console.log({ queryData })
-    // console.log(data)
 
     const unseenCount = counts?.data?.unseen
 
@@ -213,7 +142,26 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                     <LoaderDots />
                 </div>
             ) : (
-                <NotificationsList data={data} />
+                <>
+                    {currentQuery?.isInvalidated ? (
+                        <div className="fixed  w-[25rem] text-center z-10 top-[11rem]">
+                            <button
+                                type="button"
+                                className="bg-azure text-white text-sm py-2 px-4 rounded-full  opacity-50 hover:opacity-100 transition-opacity"
+                                onClick={() => {
+                                    queryClient.resetQueries({
+                                        queryKey: ['notifications'],
+                                        exact: false,
+                                        type: 'active',
+                                    })
+                                }}
+                            >
+                                update available
+                            </button>
+                        </div>
+                    ) : null}
+                    <NotificationsList data={data} />
+                </>
             )}
             <div className="flex h-8 items-center justify-center rounded-b-lg">
                 {hasNextPage && !(isFetching && !isFetchingNextPage) ? (

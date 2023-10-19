@@ -1,49 +1,26 @@
-import NotificationsList from '@/components/NotificationsWrapper'
-import BellIcon from '@/components/icons/BellIcon'
-import LoaderDots from '@/components/loaders/LoaderDots'
+import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
-import { useState } from 'react'
+
+// Components
+import NotificationsWrapper from '@/components/NotificationsWrapper'
+import BellIcon from '@/components/icons/BellIcon'
+import LoaderDots from '@/components/loaders/LoaderDots'
 
 const Header = () => {
     const queryClient = useQueryClient()
     const [showNotifications, setShowNotifications] = useState(false)
 
-    const {
-        data,
-        dataUpdatedAt,
-        error,
-        errorUpdateCount,
-        errorUpdatedAt,
-        failureCount,
-        failureReason,
-        fetchStatus,
-        isError,
-        isFetched,
-        isFetchedAfterMount,
-        isFetching,
-        isInitialLoading,
-        isLoading,
-        isLoadingError,
-        isPaused,
-        isPlaceholderData,
-        isPreviousData,
-        isRefetchError,
-        isRefetching,
-        isStale,
-        isSuccess,
-        refetch,
-        remove,
-        status,
-    } = useQuery({
+    const { data } = useQuery({
         queryKey: ['counts'],
         initialData: { all: undefined, unseen: undefined },
         staleTime: Infinity,
     })
 
-    const nt = queryClient.getQueryState(['notifications', 'all'])
-
-    console.log({ nt })
+    const allNotificationsState = queryClient.getQueryState([
+        'notifications',
+        'all',
+    ])
 
     const unseenCount = data?.unseen
     const totalCount = data?.all
@@ -59,7 +36,9 @@ const Header = () => {
                     className="relative flex h-12 w-12 items-center justify-center"
                     onClick={() => {
                         if (!showNotifications) {
-                            if (nt?.isInvalidated) {
+                            // Remove queries for both all and unseen notifications
+                            // if data was invalidated previously
+                            if (allNotificationsState?.isInvalidated) {
                                 queryClient.removeQueries({
                                     queryKey: ['notifications'],
                                     exact: false,
@@ -74,12 +53,16 @@ const Header = () => {
                     <UnreadIndicator unseenCount={unseenCount} />
                 </button>
             </header>
-            {showNotifications ? <NotificationsList /> : null}
+            {showNotifications ? <NotificationsWrapper /> : null}
         </>
     )
 }
 
-const UnreadIndicator = ({ unseenCount }) => {
+const UnreadIndicator = ({
+    unseenCount,
+}: {
+    unseenCount: undefined | string
+}) => {
     if (
         unseenCount === undefined ||
         (typeof unseenCount === 'string' && +unseenCount > 0)

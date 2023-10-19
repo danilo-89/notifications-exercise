@@ -1,6 +1,13 @@
-import { baseApi } from '@/services/baseApi'
-import { parseLinkHeader } from '@/utils/parseLinkHeader'
 import { AxiosHeaders } from 'axios'
+
+// Services
+import { baseApi } from '@/services/baseApi'
+
+// Utilities
+import { parseLinkHeader } from '@/utils/parseLinkHeader'
+
+// Types
+import { FormSchema } from '@/types/schemas'
 
 export const getNotifications = async (pageNumber: number, unseen = false) => {
     // eslint-disable-next-line no-useless-catch
@@ -24,6 +31,8 @@ export const getNotifications = async (pageNumber: number, unseen = false) => {
                 ?.toString(),
         }
 
+        console.log('check counts header', response?.headers as AxiosHeaders)
+
         console.log(
             'check counts',
             (response?.headers as AxiosHeaders)?.get?.('x-total')
@@ -40,11 +49,10 @@ export const getNotifications = async (pageNumber: number, unseen = false) => {
         }
     } catch (error: unknown) {
         throw error
-        console.log(error.message)
     }
 }
 
-export const postNotification = async (submittedData) => {
+export const postNotification = async (submittedData: FormSchema) => {
     try {
         const response = await baseApi.post(
             'http://localhost:3001/notifications',
@@ -65,8 +73,8 @@ export const postNotification = async (submittedData) => {
         }
 
         return { data: [{ ...response.data }], counts }
-    } catch (error) {
-        console.log(error.message)
+    } catch (error: unknown) {
+        /* empty */
     }
 }
 

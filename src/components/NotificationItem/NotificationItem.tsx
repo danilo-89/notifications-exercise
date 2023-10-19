@@ -45,39 +45,38 @@ const NotificationItem = ({ item }) => {
             //     }
             // )
 
+            // Invalidate queries both for seen and unseen notifications
             queryClient.invalidateQueries({
                 queryKey: ['notifications'],
                 refetchType: 'none',
             })
 
+            // Set counts based on response
             queryClient.setQueryData(['counts'], (currentData) => {
                 const counts = responseData?.counts
 
-                return counts || { all: undefined, unseen: undefined }
+                return { ...counts } || { all: undefined, unseen: undefined }
             })
 
             console.log(responseData)
-
-            console.log('still executes')
-            // queryClient.resetQueries({ queryKey: ['notifications'] })
-            // setShowUnread(false)
-            // // queryClient.removeQueries({ queryKey: ['notifications'] })
         },
         onSettled(data, error, variables, context) {
-            queryClient.setQueriesData(
-                { queryKey: ['single-notifications-state'] },
-                (stateData) => {
-                    console.log({ data })
-                    console.log({ stateData })
-                    return {
-                        ...stateData,
-                        [item.id]: {
-                            pending: false,
-                            seen: data?.data?.seen || false,
-                        },
+            if (data) {
+                queryClient.setQueriesData(
+                    { queryKey: ['single-notifications-state'] },
+                    (stateData) => {
+                        console.log({ data })
+                        console.log({ stateData })
+                        return {
+                            ...stateData,
+                            [item.id]: {
+                                pending: false,
+                                seen: data?.data?.seen || false,
+                            },
+                        }
                     }
-                }
-            )
+                )
+            }
         },
     })
 
