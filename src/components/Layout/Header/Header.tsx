@@ -36,7 +36,7 @@ const Header = () => {
                     className="relative flex h-12 w-12 items-center justify-center"
                     onClick={() => {
                         if (!showNotifications) {
-                            // Remove queries for both all and unseen notifications
+                            // Remove queries, on list open, for both 'all' and 'unseen' notifications
                             // if data was invalidated previously
                             if (allNotificationsState?.isInvalidated) {
                                 queryClient.removeQueries({
