@@ -18,11 +18,18 @@ const Form = () => {
         mutationKey: ['post-notification'],
         mutationFn: postNotification,
         onSuccess() {
+            // invalidate query for active notifications query
             queryClient.invalidateQueries({
                 queryKey: ['notifications'],
                 exact: false,
-                type: 'all',
+                type: 'active',
                 refetchType: 'none',
+            })
+            // clear data cache for inactive notifications query
+            queryClient.removeQueries({
+                queryKey: ['notifications'],
+                exact: false,
+                type: 'inactive',
             })
         },
     })
