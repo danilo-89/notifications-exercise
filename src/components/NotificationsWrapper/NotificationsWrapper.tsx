@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { QueryState, useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 
 // Hooks
@@ -13,44 +13,19 @@ import LoaderDots from '../loaders/LoaderDots'
 import NotificationsList from '../NotificationsList'
 
 const NotificationsWrapper = () => {
-    // const queryClient = useQueryClient()
     const queryClient = useQueryClient()
-
-    // console.log('cache', queryClient.getQueryData(['notifications', null]))
-
-    const counts = queryClient.getQueryState(['counts'])
-    // const queryData = queryClient.getQueryData(['notifications'])
+    const counts: QueryState<{ unseen: boolean }, Error> | undefined =
+        queryClient.getQueryState(['counts'])
 
     const [showUnreadTab, setShowUnreadTab] = useState(false)
 
-    // const nt = queryClient.getQueryState([
-    //     'notifications',
-    //     showUnreadTab ? 'unseen' : 'all',
-    // ])
-
-    const {
-        isFetching,
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        status,
-        isStale,
-    } = useNotificationsQuery(showUnreadTab)
-
-    // queryClient.is
-
-    console.log({ counts })
-    console.log('find params', data)
-    console.log({ status })
-    console.log({ isStale })
+    const { isFetching, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+        useNotificationsQuery(showUnreadTab)
 
     const currentQuery = queryClient.getQueryState([
         'notifications',
         showUnreadTab ? 'unseen' : 'all',
     ])
-
-    console.log(currentQuery)
 
     const { mutate, isPending: isMutatePending } = useMutation({
         mutationKey: ['read-all-notification'],
@@ -147,7 +122,7 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                         <div className="fixed  w-[25rem] text-center z-10 top-[11rem]">
                             <button
                                 type="button"
-                                className="bg-azure text-white text-sm py-2 px-4 rounded-full  opacity-50 hover:opacity-100 transition-opacity"
+                                className="bg-azure text-white text-sm py-2 px-4 rounded-full  opacity-90 hover:opacity-100 transition-opacity"
                                 onClick={() => {
                                     queryClient.resetQueries({
                                         queryKey: ['notifications'],

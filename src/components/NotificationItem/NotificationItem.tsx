@@ -1,18 +1,23 @@
-import { readSingleNotification } from '@/requests'
-import {
-    useIsMutating,
-    useMutation,
-    useMutationState,
-    useQuery,
-    useQueryClient,
-} from '@tanstack/react-query'
-import { useState } from 'react'
-
-import avatarPlaceholderImg from '@/assets/avatar-placeholder.png'
-import Spinner from '../loaders/Spinner'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import formatDistance from 'date-fns/formatDistance'
 
-const NotificationItem = ({ item }) => {
+// Requests
+import { readSingleNotification } from '@/requests'
+
+// Assets
+import avatarPlaceholderImg from '@/assets/avatar-placeholder.png'
+
+// Components
+import Spinner from '../loaders/Spinner'
+
+// Types
+import { Notification } from '@/types/api'
+
+interface IProps {
+    item: Notification
+}
+
+const NotificationItem = ({ item }: IProps) => {
     const queryClient = useQueryClient()
 
     const { mutate } = useMutation({
@@ -23,17 +28,18 @@ const NotificationItem = ({ item }) => {
             queryClient.setQueriesData(
                 { queryKey: ['single-notifications-state'] },
                 (data) => {
-                    console.log(data)
-                    return {
-                        ...data,
-                        [item.id]: {
-                            pending: true,
-                        },
+                    if (data) {
+                        return {
+                            ...data,
+                            [item.id]: {
+                                pending: true,
+                            },
+                        }
                     }
                 }
             )
         },
-        onSuccess(responseData, variables, context) {
+        onSuccess(responseData) {
             // queryClient.setQueriesData(
             //     { queryKey: ['notifications'], exact: false },
             //     (currentData) => {
@@ -52,7 +58,7 @@ const NotificationItem = ({ item }) => {
             })
 
             // Set counts based on response
-            queryClient.setQueryData(['counts'], (currentData) => {
+            queryClient.setQueryData(['counts'], () => {
                 const counts = responseData?.counts
 
                 return { ...counts } || { all: undefined, unseen: undefined }
@@ -60,19 +66,21 @@ const NotificationItem = ({ item }) => {
 
             console.log(responseData)
         },
-        onSettled(data, error, variables, context) {
+        onSettled(data) {
             if (data) {
                 queryClient.setQueriesData(
                     { queryKey: ['single-notifications-state'] },
                     (stateData) => {
                         console.log({ data })
                         console.log({ stateData })
-                        return {
-                            ...stateData,
-                            [item.id]: {
-                                pending: false,
-                                seen: data?.data?.seen || false,
-                            },
+                        if (stateData) {
+                            return {
+                                ...stateData,
+                                [item.id]: {
+                                    pending: false,
+                                    seen: data?.data?.seen || false,
+                                },
+                            }
                         }
                     }
                 )
@@ -81,8 +89,10 @@ const NotificationItem = ({ item }) => {
     })
 
     // console.log(queryClient.getQueryState(['single-notifications-state']))
-    const state = queryClient.getQueryData(['single-notifications-state'])
-    const itemState = state?.[item.id] || {}
+    const state:
+        | { [key: string]: { seen: boolean; pending: boolean } }
+        | undefined = queryClient.getQueryData(['single-notifications-state'])
+    const itemState = state?.[item.id] || { seen: false, pending: false }
 
     // queryClient.getQueryState(['single-notifications-state'])
     // queryClient.getQueryData(['single-notifications-state'])
