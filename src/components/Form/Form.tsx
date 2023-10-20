@@ -1,15 +1,19 @@
 import { FormEventHandler, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
+import { ZodError } from 'zod'
 
 // Schemas
 import { formSchema } from '@/schemas'
 
+// Contexts
+import { useNotificationsUpdateContext } from '@/hooks/useNotificationsUpdateContext'
+
 // Requests
 import { postNotification } from '@/requests'
-import { ZodError } from 'zod'
 
 const Form = () => {
+    const { setNewNotifications } = useNotificationsUpdateContext()
     const queryClient = useQueryClient()
     const [user, setUser] = useState('')
     const [body, setBody] = useState('')
@@ -31,6 +35,8 @@ const Form = () => {
                 exact: false,
                 type: 'inactive',
             })
+
+            setNewNotifications((curr) => curr + 1)
         },
     })
 
@@ -46,13 +52,14 @@ const Form = () => {
             formSchema.parse(dataObject)
             mutate(dataObject)
         } catch (err: unknown) {
-            if (err instanceof ZodError)
+            if (err instanceof ZodError) {
                 toast(
                     <div>
-                        <div>test</div>
+                        <div className="font-bold text-base">Error</div>
                         <div>{err?.errors?.[0]?.message}</div>
                     </div>
                 )
+            }
         }
     }
 
