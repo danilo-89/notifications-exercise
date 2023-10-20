@@ -9,7 +9,10 @@ import { Toaster, toast } from 'sonner'
 // Styles
 import './App.css'
 
-// Components
+// Contexts
+import { NotificationsUpdateContextProvider } from '@/contexts/NotificationsUpdateContext'
+
+// Pages
 import Home from '@/pages'
 
 const queryClient = new QueryClient({
@@ -22,9 +25,11 @@ const queryClient = new QueryClient({
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <Toaster />
-            <Home />
-            <ReactQueryDevtools initialIsOpen={false} />
+            <NotificationsUpdateContextProvider>
+                <Toaster />
+                <Home />
+                <ReactQueryDevtools initialIsOpen={false} />
+            </NotificationsUpdateContextProvider>
         </QueryClientProvider>
     )
 }
