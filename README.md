@@ -1,4 +1,4 @@
-# Notifications Exercise
+# Notifications App Example
 
 ## Running Locally
 
