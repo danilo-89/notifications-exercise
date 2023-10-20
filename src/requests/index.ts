@@ -31,16 +31,7 @@ export const getNotifications = async (pageNumber: number, unseen = false) => {
                 ?.toString(),
         }
 
-        console.log('check counts header', response?.headers as AxiosHeaders)
-
-        console.log(
-            'check counts',
-            (response?.headers as AxiosHeaders)?.get?.('x-total')
-        )
-
         const linkHeaderParsed = parseLinkHeader(linkHeader || '')
-
-        // console.log({ linkHeaderParsed })
 
         return {
             data: response?.data,
@@ -57,10 +48,6 @@ export const postNotification = async (submittedData: FormSchema) => {
         const response = await baseApi.post(
             'http://localhost:3001/notifications',
             submittedData
-            // {
-            //     user: 'test',
-            //     body: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel eum enim, ex natus non fugit.',
-            // }
         )
 
         const counts = {
