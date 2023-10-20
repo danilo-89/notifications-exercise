@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 
+// Contexts
+import { useNotificationsUpdateContext } from '@/hooks/useNotificationsUpdateContext'
+
 // Components
 import NotificationsWrapper from '@/components/NotificationsWrapper'
 import BellIcon from '@/components/icons/BellIcon'
@@ -10,6 +13,8 @@ import LoaderDots from '@/components/loaders/LoaderDots'
 const Header = () => {
     const queryClient = useQueryClient()
     const [showNotifications, setShowNotifications] = useState(false)
+    const { setNewNotifications, newNotifications } =
+        useNotificationsUpdateContext()
 
     const { data } = useQuery({
         queryKey: ['counts'],
@@ -22,7 +27,6 @@ const Header = () => {
         'all',
     ])
 
-    const unseenCount = data?.unseen
     const totalCount = data?.all
 
     return (
@@ -36,6 +40,7 @@ const Header = () => {
                     className="relative flex h-12 w-12 items-center justify-center"
                     onClick={() => {
                         if (!showNotifications) {
+                            setNewNotifications(0)
                             // Remove queries, on list open, for both 'all' and 'unseen' notifications
                             // if data was invalidated previously
                             if (allNotificationsState?.isInvalidated) {
@@ -50,7 +55,7 @@ const Header = () => {
                     }}
                 >
                     <BellIcon />
-                    <UnreadIndicator unseenCount={unseenCount} />
+                    <UnreadIndicator newNotifications={newNotifications} />
                 </button>
             </header>
             {showNotifications ? <NotificationsWrapper /> : null}
@@ -59,24 +64,21 @@ const Header = () => {
 }
 
 const UnreadIndicator = ({
-    unseenCount,
+    newNotifications,
 }: {
-    unseenCount: undefined | string
+    newNotifications: number
 }) => {
-    if (
-        unseenCount === undefined ||
-        (typeof unseenCount === 'string' && +unseenCount > 0)
-    ) {
+    if (typeof newNotifications === 'number' && newNotifications > 0) {
         return (
             <span
                 className={clsx(
                     'absolute right-0 top-0 flex h-6 w-6 items-center justify-center rounded-full',
-                    unseenCount === undefined
+                    newNotifications === 0
                         ? 'bg-[#d9d9d9] text-slateGray text-sm'
                         : 'bg-azure text-white text-xs'
                 )}
             >
-                {unseenCount}
+                {newNotifications === 0 ? '' : newNotifications}
             </span>
         )
     }
