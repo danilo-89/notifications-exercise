@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { QueryState, useMutation, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 
+// Contexts
+import { useNotificationsUpdateContext } from '@/hooks/useNotificationsUpdateContext'
+
 // Hooks
 import { useNotificationsQuery } from '@/hooks/useNotificationsQuery'
 
@@ -13,27 +16,27 @@ import LoaderDots from '../loaders/LoaderDots'
 import NotificationsList from '../NotificationsList'
 
 const NotificationsWrapper = () => {
+    const { newNotifications, setNewNotifications } =
+        useNotificationsUpdateContext()
     const queryClient = useQueryClient()
     const counts: QueryState<{ unseen: boolean }, Error> | undefined =
         queryClient.getQueryState(['counts'])
 
     const [showUnreadTab, setShowUnreadTab] = useState(false)
 
-    const { isFetching, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-        useNotificationsQuery(showUnreadTab)
-
-    const currentQuery = queryClient.getQueryState([
-        'notifications',
-        showUnreadTab ? 'unseen' : 'all',
-    ])
+    const {
+        isFetching,
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isStale,
+    } = useNotificationsQuery(showUnreadTab)
 
     const { mutate, isPending: isMutatePending } = useMutation({
         mutationKey: ['read-all-notification'],
         mutationFn: readAllNotifications,
-        onSuccess(responseData, variables, context) {
-            console.log({ responseData })
-            console.log({ context })
-
+        onSuccess(responseData) {
             // reset query for 'all' notifications query
             queryClient.resetQueries({
                 queryKey: ['notifications', 'all'],
@@ -57,6 +60,18 @@ const NotificationsWrapper = () => {
     })
 
     const unseenCount = counts?.data?.unseen
+
+    const handleUpdate = () => {
+        setNewNotifications(0)
+        setShowUnreadTab(false)
+        queryClient.resetQueries({
+            queryKey: ['notifications', 'all'],
+        })
+        queryClient.invalidateQueries({
+            queryKey: ['notifications', 'unseen'],
+            refetchType: 'none',
+        })
+    }
 
     return (
         <div
@@ -102,7 +117,7 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                     exact: true,
                                 })
                             }
-
+                            setNewNotifications(0)
                             setShowUnreadTab(false)
                         }}
                         className={clsx(
@@ -127,6 +142,8 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                     exact: true,
                                 })
                             }
+
+                            setNewNotifications(0)
                             setShowUnreadTab(true)
                         }}
                         className={clsx(
@@ -146,17 +163,14 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                 </div>
             ) : (
                 <>
-                    {currentQuery?.isInvalidated ? (
+                    {/* test */}
+                    {newNotifications ? (
                         <div className="fixed  w-[25rem] text-center z-10 top-[11rem]">
                             <button
                                 type="button"
                                 className="bg-azure text-white text-sm py-2 px-4 rounded-full  opacity-90 hover:opacity-100 transition-opacity"
                                 onClick={() => {
-                                    queryClient.resetQueries({
-                                        queryKey: ['notifications'],
-                                        exact: false,
-                                        type: 'active',
-                                    })
+                                    handleUpdate()
                                 }}
                             >
                                 update available
@@ -174,7 +188,11 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                         }`}
                         disabled={isFetchingNextPage}
                         onClick={() => {
+                            // if (isStale && newNotifications) {
+                            //     handleUpdate()
+                            // } else {
                             fetchNextPage()
+                            // }
                         }}
                     >
                         {isFetchingNextPage ? (
@@ -182,6 +200,8 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                 Loading
                                 <LoaderDots />
                             </>
+                        ) : isStale && newNotifications ? (
+                            'Refresh notifications'
                         ) : (
                             'Load More'
                         )}
