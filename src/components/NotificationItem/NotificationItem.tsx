@@ -23,8 +23,7 @@ const NotificationItem = ({ item }: IProps) => {
     const { mutate } = useMutation({
         mutationKey: ['read-single-notification', item.id],
         mutationFn: () => readSingleNotification(item.id),
-        onMutate(variables) {
-            console.log({ variables })
+        onMutate() {
             queryClient.setQueriesData(
                 { queryKey: ['single-notifications-state'] },
                 (data) => {
@@ -58,18 +57,19 @@ const NotificationItem = ({ item }: IProps) => {
             queryClient.setQueryData(['counts'], () => {
                 const counts = responseData?.counts
 
-                return { ...counts } || { all: undefined, unseen: undefined }
+                return (
+                    { ...counts } || {
+                        all: undefined,
+                        unseen: undefined,
+                    }
+                )
             })
-
-            console.log(responseData)
         },
         onSettled(data) {
             if (data) {
                 queryClient.setQueriesData(
                     { queryKey: ['single-notifications-state'] },
                     (stateData) => {
-                        console.log({ data })
-                        console.log({ stateData })
                         if (stateData) {
                             return {
                                 ...stateData,
