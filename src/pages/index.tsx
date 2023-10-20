@@ -4,11 +4,15 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 // Requests
 import { getNotifications } from '@/requests'
 
+// Contexts
+import { useNotificationsUpdateContext } from '@/hooks/useNotificationsUpdateContext'
+
 // Components
 import Form from '@/components/Form'
 import Header from '@/components/Layout/Header'
 
 const Home = () => {
+    const { setNewNotifications } = useNotificationsUpdateContext()
     const queryClient = useQueryClient()
 
     useEffect(() => {
@@ -22,17 +26,12 @@ const Home = () => {
                         await getNotifications(pageParam.pageParam),
                 })
 
-                console.log(response)
-
+                const counts = response?.pages?.[0]?.counts
                 queryClient.setQueryData(['counts'], () => {
-                    console.log(response)
-
-                    console.log('test', response)
-
-                    const counts = response?.pages?.[0]?.counts
-
                     return counts || { all: undefined, unseen: undefined }
                 })
+
+                setNewNotifications(Number(counts?.unseen) || 0)
             } catch (err) {
                 console.log(err)
             }
