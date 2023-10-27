@@ -3,6 +3,9 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import clsx from 'clsx'
 
 // Contexts
+import { NotificationMutationContextProvider } from '@/contexts/NotificationMutationContext'
+
+// Hooks
 import { useNotificationsUpdateContext } from '@/hooks/useNotificationsUpdateContext'
 
 // Components
@@ -58,7 +61,9 @@ const Header = () => {
                     <UnreadIndicator newNotifications={newNotifications} />
                 </button>
             </header>
-            {showNotifications ? <NotificationsWrapper /> : null}
+            <NotificationMutationContextProvider>
+                {showNotifications ? <NotificationsWrapper /> : null}
+            </NotificationMutationContextProvider>
         </>
     )
 }
