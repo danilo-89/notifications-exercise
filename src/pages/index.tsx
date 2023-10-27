@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 
 // Requests
 import { getNotifications } from '@/requests'
@@ -27,6 +27,7 @@ const Home = () => {
                 })
 
                 const counts = response?.pages?.[0]?.counts
+
                 queryClient.setQueryData(['counts'], () => {
                     return counts || { all: undefined, unseen: undefined }
                 })
@@ -37,13 +38,7 @@ const Home = () => {
             }
         }
         getInitialData()
-    }, [queryClient])
-
-    useQuery({
-        queryKey: ['single-notifications-state'],
-        initialData: {},
-        queryFn: () => ({}),
-    })
+    }, [queryClient, setNewNotifications])
 
     return (
         <>
