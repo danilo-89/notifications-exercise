@@ -90,6 +90,7 @@ export const readAllNotifications = async () => {
 }
 
 export const readSingleNotification = async (id: string) => {
+    // eslint-disable-next-line no-useless-catch
     try {
         const response = await baseApi.patch(
             `http://localhost:3001/notifications/${id}`
@@ -108,7 +109,8 @@ export const readSingleNotification = async (id: string) => {
             data: response?.data,
             counts,
         }
-    } catch (error) {
+    } catch (error: unknown) {
+        throw error
         console.log(error)
     }
 }
