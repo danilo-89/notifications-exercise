@@ -8,12 +8,9 @@ import {
 // Requests
 import { readSingleNotification } from '@/requests'
 
-// Types
-import { Notification } from '@/types/api'
-
 type IProps = null | UseMutationResult<
     {
-        data: any
+        data: unknown
         counts: {
             all: string | undefined
             unseen: string | undefined
@@ -21,7 +18,7 @@ type IProps = null | UseMutationResult<
     },
     Error,
     string,
-    void
+    unknown
 >
 
 export const NotificationMutationContext = createContext<IProps>(null)
