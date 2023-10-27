@@ -83,23 +83,16 @@ const NotificationsWrapper = () => {
 bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0,_0,_0,_0.04),_0px_3px_3px_0px_rgba(0,_0,_0,_0.03),_0px_7px_4px_0px_rgba(0,_0,_0,_0.02)]"
             >
                 <div className="flex justify-between py-4 pl-6 pr-4">
-                    <div className="flex">
-                        <span className="mr-1.5 font-semibold">Inbox</span>
-                        {typeof unseenCount === 'string' && +unseenCount > 0 ? (
-                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-azure text-xs text-white">
-                                {unseenCount}
-                            </span>
-                        ) : null}
-                    </div>
+                    <span className="mr-1.5 font-semibold">Inbox</span>
                     <button
                         type="button"
                         onClick={() => mutate()}
-                        className={`text-xs font-medium ${
+                        className={`flex items-center text-xs font-medium ${
                             isMutatePending ? 'text-night' : 'text-azure'
                         }`}
                         disabled={isMutatePending}
                     >
-                        Mark all as read
+                        <span>Mark all as read</span>
                     </button>
                 </div>
                 <div className="flex pl-6 pr-4">
@@ -147,12 +140,17 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                             setShowUnreadTab(true)
                         }}
                         className={clsx(
-                            'h-[2.125rem] relative inline-block px-3 text-xs font-medium',
+                            'h-[2.125rem] relative flex px-3 text-xs font-medium items-center',
                             showUnreadTab &&
                                 "text-azure after:content-[''] after:h-0.5 after:w-full after:bg-azure after:absolute after:left-0 after:bottom-0"
                         )}
                     >
-                        Unread
+                        <span className="mr-1">Unread</span>
+                        {typeof unseenCount === 'string' && +unseenCount > 0 ? (
+                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-azure text-xs text-white">
+                                {unseenCount}
+                            </span>
+                        ) : null}
                     </button>
                 </div>
             </div>
@@ -163,7 +161,6 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                 </div>
             ) : (
                 <>
-                    {/* test */}
                     {newNotifications ? (
                         <div className="fixed  w-[25rem] text-center z-10 top-[11rem]">
                             <button
@@ -188,11 +185,7 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                         }`}
                         disabled={isFetchingNextPage}
                         onClick={() => {
-                            // if (isStale && newNotifications) {
-                            //     handleUpdate()
-                            // } else {
                             fetchNextPage()
-                            // }
                         }}
                     >
                         {isFetchingNextPage ? (
@@ -200,8 +193,6 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                 Loading
                                 <LoaderDots />
                             </>
-                        ) : isStale && newNotifications ? (
-                            'Refresh notifications'
                         ) : (
                             'Load More'
                         )}
