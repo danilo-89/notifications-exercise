@@ -16,22 +16,15 @@ import LoaderDots from '../loaders/LoaderDots'
 import NotificationsList from '../NotificationsList'
 
 const NotificationsWrapper = () => {
-    const { newNotifications, setNewNotifications } =
-        useNotificationsUpdateContext()
+    const { newNotifications } = useNotificationsUpdateContext()
     const queryClient = useQueryClient()
     const counts: QueryState<{ unseen: boolean }, Error> | undefined =
         queryClient.getQueryState(['counts'])
 
     const [showUnreadTab, setShowUnreadTab] = useState(false)
 
-    const {
-        isFetching,
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-        isStale,
-    } = useNotificationsQuery(showUnreadTab)
+    const { isFetching, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+        useNotificationsQuery(showUnreadTab)
 
     const { mutate, isPending: isMutatePending } = useMutation({
         mutationKey: ['read-all-notification'],
@@ -62,7 +55,6 @@ const NotificationsWrapper = () => {
     const unseenCount = counts?.data?.unseen
 
     const handleUpdate = () => {
-        setNewNotifications(0)
         setShowUnreadTab(false)
         queryClient.resetQueries({
             queryKey: ['notifications', 'all'],
@@ -110,7 +102,7 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                     exact: true,
                                 })
                             }
-                            setNewNotifications(0)
+
                             setShowUnreadTab(false)
                         }}
                         className={clsx(
@@ -136,7 +128,6 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                 })
                             }
 
-                            setNewNotifications(0)
                             setShowUnreadTab(true)
                         }}
                         className={clsx(
@@ -147,9 +138,7 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                     >
                         <span className="mr-1">Unread</span>
                         {typeof unseenCount === 'string' && +unseenCount > 0 ? (
-                            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-azure text-xs text-white">
-                                {unseenCount}
-                            </span>
+                            <span className="text-xs ">({unseenCount})</span>
                         ) : null}
                     </button>
                 </div>
@@ -169,6 +158,7 @@ bg-white [box-shadow:0px_0px_0px_0px_rgba(0,_0,_0,_0.04),_0px_1px_2px_0px_rgba(0
                                 onClick={() => {
                                     handleUpdate()
                                 }}
+                                disabled={isFetching}
                             >
                                 update available
                             </button>
