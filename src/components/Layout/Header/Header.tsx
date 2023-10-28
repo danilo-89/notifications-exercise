@@ -16,8 +16,7 @@ import LoaderDots from '@/components/loaders/LoaderDots'
 const Header = () => {
     const queryClient = useQueryClient()
     const [showNotifications, setShowNotifications] = useState(false)
-    const { setNewNotifications, newNotifications } =
-        useNotificationsUpdateContext()
+    const { newNotifications } = useNotificationsUpdateContext()
 
     const { data } = useQuery({
         queryKey: ['counts'],
@@ -43,7 +42,6 @@ const Header = () => {
                     className="relative flex h-12 w-12 items-center justify-center"
                     onClick={() => {
                         if (!showNotifications) {
-                            setNewNotifications(0)
                             // Remove queries, on list open, for both 'all' and 'unseen' notifications
                             // if data was invalidated previously
                             if (allNotificationsState?.isInvalidated) {
