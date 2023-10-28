@@ -4,8 +4,12 @@ import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query'
 // Requests
 import { getNotifications } from '@/requests'
 
+// Hooks
+import { useNotificationsUpdateContext } from './useNotificationsUpdateContext'
+
 export const useNotificationsQuery = (unseen = false, enabled = true) => {
     const queryClient = useQueryClient()
+    const { setNewNotifications } = useNotificationsUpdateContext()
 
     const queryData = useInfiniteQuery({
         enabled,
@@ -31,6 +35,13 @@ export const useNotificationsQuery = (unseen = false, enabled = true) => {
             })
         }
     }, [queryData?.data, queryClient])
+
+    // setting newNotifications to 0 when query is refetched
+    useEffect(() => {
+        if (queryData?.data && queryData.data?.pageParams.length === 1) {
+            setNewNotifications(0)
+        }
+    }, [queryData.data, setNewNotifications])
 
     return queryData
 }
