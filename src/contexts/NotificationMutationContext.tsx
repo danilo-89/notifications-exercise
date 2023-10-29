@@ -34,17 +34,17 @@ export function NotificationMutationContextProvider({
         mutationKey: ['read-single-notification'],
         mutationFn: (id: string) => readSingleNotification(id),
         onSuccess(responseData) {
-            // invalidate query for active notifications query
+            // invalidate unseen notifications query if query is active
             queryClient.invalidateQueries({
-                queryKey: ['notifications'],
+                queryKey: ['notifications', 'unseen'],
                 exact: false,
                 type: 'active',
                 refetchType: 'none',
             })
 
-            // clear data cache for inactive notifications query
+            // clear unseen notifications query's cache if query is inactive
             queryClient.removeQueries({
-                queryKey: ['notifications'],
+                queryKey: ['notifications', 'unseen'],
                 exact: false,
                 type: 'inactive',
             })
